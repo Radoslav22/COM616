@@ -3,7 +3,7 @@ import NavBar from "../Components/navbar";
 import GoogleMap from "../Components/googlemap";
 import { Box } from '@mui/system';
 import { Typography, Grid } from '@mui/material';
-
+import Restaurants from "../Components/restaurants"
 function Home() {
 
     const message = "Hello Restaurants"
@@ -11,22 +11,23 @@ function Home() {
         <div>
             <NavBar></NavBar>
             <GoogleMap></GoogleMap>
-            <Box sx={{ position: "absolute", top: "9%", left: 0, background: "yellow", marginRight: "80%", padding: "2px" }}>
+            <Box sx={{ position: "absolute", top: "9%", left: 0, marginRight: "80%", padding: "2px", maxHeight: '100%', overflow: "auto" }}>
                 <Grid sx={{ paddingBottom: "2px" }}>
-                    <Typography noWrap>{message}</Typography>
+                    <Restaurants></Restaurants>
                 </Grid>
                 <Grid sx={{ paddingBottom: "2px" }}>
-                    <Typography noWrap>{message}</Typography>
+                    <Restaurants></Restaurants>
                 </Grid>
                 <Grid sx={{ paddingBottom: "2px" }}>
-                    <Typography noWrap>{message}</Typography>
+                    <Restaurants></Restaurants>
                 </Grid>
                 <Grid sx={{ paddingBottom: "2px" }}>
-                    <Typography noWrap>{message}</Typography>
+                    <Restaurants></Restaurants>
                 </Grid>
                 <Grid sx={{ paddingBottom: "2px" }}>
-                    <Typography noWrap>{message}</Typography>
+                    <Restaurants></Restaurants>
                 </Grid>
+
             </Box>
 
 
