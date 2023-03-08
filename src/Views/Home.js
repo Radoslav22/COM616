@@ -15,18 +15,7 @@ function Home() {
                 <Grid sx={{ paddingBottom: "2px" }}>
                     <Restaurants></Restaurants>
                 </Grid>
-                <Grid sx={{ paddingBottom: "2px" }}>
-                    <Restaurants></Restaurants>
-                </Grid>
-                <Grid sx={{ paddingBottom: "2px" }}>
-                    <Restaurants></Restaurants>
-                </Grid>
-                <Grid sx={{ paddingBottom: "2px" }}>
-                    <Restaurants></Restaurants>
-                </Grid>
-                <Grid sx={{ paddingBottom: "2px" }}>
-                    <Restaurants></Restaurants>
-                </Grid>
+
 
             </Box>
 
