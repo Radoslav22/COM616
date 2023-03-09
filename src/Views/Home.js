@@ -4,6 +4,9 @@ import GoogleMap from "../Components/googlemap";
 import { Box } from '@mui/system';
 import { Typography, Grid } from '@mui/material';
 import Restaurants from "../Components/restaurants"
+import Fab from '@mui/material/Fab';
+import ChatIcon from '@mui/icons-material/Chat';
+
 function Home() {
 
     const message = "Hello Restaurants"
@@ -15,9 +18,11 @@ function Home() {
                 <Grid sx={{ paddingBottom: "2px" }}>
                     <Restaurants></Restaurants>
                 </Grid>
-
-
             </Box>
+            <Fab size="large" color="success" aria-label="add" sx={{ position: "fixed", bottom: 20, right: 20 }}>
+                <ChatIcon />
+            </Fab>
+
 
 
 

@@ -4,6 +4,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { initializeApp } from "firebase/app";
 import firebaseConfig from "./config/firebaseConfig";
 import Home from "./Views/Home";
+import Login from './Views/Login';
+import SignUp from './Views/Signup'
 
 
 function App() {
@@ -13,8 +15,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/add" element={<Home />} />
-          <Route path="/update" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+
 
         </Routes>
       </BrowserRouter>
