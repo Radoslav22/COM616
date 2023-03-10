@@ -1,5 +1,5 @@
 import {
-    createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, FacebookAuthProvider, onAuthStateChanged,
+    createUserWithEmailAndPassword, FacebookAuthProvider, getAuth, GoogleAuthProvider, onAuthStateChanged,
     signInWithEmailAndPassword, signInWithPopup, signOut
 } from "firebase/auth";
 import { useEffect, useState } from "react";
@@ -11,7 +11,7 @@ function useAuth() {
     const auth = getAuth();
 
     const googleProvider = new GoogleAuthProvider();
-    const facebookProvider = new FacebookAuthProvider();
+    const facebookProvider = new FacebookAuthProvider
 
     useEffect(() => {
 
@@ -41,8 +41,6 @@ function useAuth() {
     const signUserOut = () => signOut(auth);
     const signInGoogleUser = () => signInWithPopup(auth, googleProvider);
     const signInFacebookUser = () => signInWithPopup(auth, facebookProvider);
-
-
     return {
         createEmailUser, isAuthenticated, signInEmailUser, signUserOut, user,
         signInGoogleUser, signInFacebookUser
