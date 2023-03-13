@@ -1,4 +1,7 @@
-import * as React from 'react';
+import React from 'react';
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -14,7 +17,8 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import GoogleIcon from '@mui/icons-material/Google';
 import FacebookIcon from '@mui/icons-material/Facebook';
-import { Face } from '@mui/icons-material';
+
+import { Alert } from '@mui/material';
 
 
 function Copyright(props) {
@@ -32,15 +36,33 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignIn() {
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
-    };
+export default function SignIn(props) {
+    const { onEmailSubmit, onSocialSubmit } = props;
+
+
+    const loginFormSchema = yup
+        .object({
+            email: yup
+                .string()
+                .email("please enter a valid email")
+                .required("please enter a email"),
+            password: yup
+                .string()
+                .required("please enter a password")
+                .min(5, "password must be 5 characters long"),
+        })
+        .required();
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm({
+        resolver: yupResolver(loginFormSchema),
+    });
+
+
+
 
     return (
         <ThemeProvider theme={theme}>
@@ -60,77 +82,99 @@ export default function SignIn() {
                     <Typography component="h1" variant="h5">
                         Sign in
                     </Typography>
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="email"
-                            label="Email Address"
-                            name="email"
-                            autoComplete="email"
-                            autoFocus
-                        />
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="password"
-                            label="Password"
-                            type="password"
-                            id="password"
-                            autoComplete="current-password"
-                        />
-                        <FormControlLabel
-                            control={<Checkbox value="remember" color="primary" />}
-                            label="Remember me"
-                        />
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                        >
-                            Sign In
-                        </Button>
-                        <Button
-                            startIcon={<FacebookIcon />}
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                            color="inherit"
-                        >
-                            Continue with Facebook
-                        </Button>
-                        <Button
-                            startIcon={<GoogleIcon />}
-                            type="submit"
-
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                            color="inherit"
-                        >
-                            Continue with Google
-                        </Button>
-
-                        <Grid container>
-                            <Grid item xs>
-                                <Link href="#" variant="body2">
-                                    Forgot password?
-                                </Link>
+                    <form onSubmit={handleSubmit(onEmailSubmit)} sx={{ mt: 1 }}>
+                        <Grid container spacing={0.5}>
+                            <Grid item xs={12}>
+                                <TextField
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    id="email"
+                                    label="Email Address"
+                                    name="email"
+                                    autoComplete="email"
+                                    autoFocus
+                                    {...register("email")}
+                                />
+                                {errors?.email?.message && (
+                                    <Alert severity="error">{errors.email.message}</Alert>
+                                )}
                             </Grid>
-                            <Grid item>
-                                <Link href="/signup" variant="body2">
-                                    {"Don't have an account? Sign Up"}
-                                </Link>
+                            <Grid item xs={12}>
+                                <TextField
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    name="password"
+                                    label="Password"
+                                    type="password"
+                                    id="password"
+                                    autoComplete="current-password"
+                                    {...register("password")}
+                                />
+                                {errors?.password?.message && (
+                                    <Alert severity="error">{errors.password.message}</Alert>
+                                )}
+                            </Grid>
+                            <Grid item xs={12}>
+                                <FormControlLabel
+                                    control={<Checkbox value="remember" color="primary" />}
+                                    label="Remember me"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Button
+
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    sx={{ mt: 3, mb: 2 }}
+                                >
+                                    Login
+                                </Button>
                             </Grid>
                         </Grid>
-                    </Box>
+                    </form>
+                    <Button
+                        startIcon={<FacebookIcon />}
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
+                        color="inherit"
+                        onClick={() => onSocialSubmit("facebook")}
+                    >
+                        Continue with Facebook
+                    </Button>
+                    <Button
+                        startIcon={<GoogleIcon />}
+                        type="submit"
+
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
+                        color="inherit"
+                        onClick={() => onSocialSubmit("google")}
+                    >
+                        Continue with Google
+                    </Button>
+
+                    <Grid container>
+                        <Grid item xs>
+                            <Link href="#" variant="body2">
+                                Forgot password?
+                            </Link>
+                        </Grid>
+                        <Grid item>
+                            <Link href="/signup" variant="body2">
+                                {"Don't have an account? Sign Up"}
+                            </Link>
+                        </Grid>
+                    </Grid>
+
                 </Box>
                 <Copyright sx={{ mt: 8, mb: 4 }} />
             </Container>
-        </ThemeProvider>
+        </ThemeProvider >
     );
 }

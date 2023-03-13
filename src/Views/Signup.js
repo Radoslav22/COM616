@@ -1,15 +1,14 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import React from "react";
+
 import Form from "../Components/signupform";
-import Tile from "../Components/Tile";
+
 import useAuth from "../services/firebase/useAuth";
 
 
 
 function Signup(props) {
     const { createEmailUser, signInFacebookUser, signInGoogleUser } = useAuth();
-    const [severErrorMessage, setServerErrorMessage] = useState();
+
 
     const handleEmailSubmit = async (data) => {
         try {
@@ -17,7 +16,7 @@ function Signup(props) {
             await createEmailUser(email, password);
             console.log(data);
         } catch (e) {
-            setServerErrorMessage(e.message);
+            console.log(e.message);
         }
     };
 
@@ -38,9 +37,10 @@ function Signup(props) {
         <div>
 
             <Form
+
                 onSocialSubmit={handleSocialSubmit}
                 onEmailSubmit={handleEmailSubmit}
-                serverErrorMessage={severErrorMessage}
+
             />
 
         </div>

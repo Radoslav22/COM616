@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
-import React, { useState } from "react";
-import styled from "styled-components";
+import React from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -19,26 +18,6 @@ import GoogleIcon from '@mui/icons-material/Google'
 import FacebookIcon from '@mui/icons-material/Facebook'
 import { Alert } from "@mui/material";
 
-const StyledErrorLabel = styled.label`
-    color: red;
-    font-weight: bolder;
-    margin: 1% 0 4% 0;
-  `;
-
-const StyledHeading = styled.h2`
-    text-align: center;
-    margin-top: 2%;
-    color: ${({ theme }) => theme.colors.purple};
-  `;
-
-const StyledSocialIconArea = styled.div`
-    display: flex;
-    justify-content: space-around;
-    img {
-      width: 50px;
-      height: 50px;
-    }
-  `;
 
 function Copyright(props) {
     return (
@@ -54,8 +33,8 @@ function Copyright(props) {
 }
 
 function LoginForm(props) {
-    const { buttonText, onEmailSubmit, onSocialSubmit, serverErrorMessage } = props;
-    const [displayEmail, setDisplayEmail] = useState(false);
+    const { onEmailSubmit, onSocialSubmit } = props;
+
     const theme = createTheme();
 
     const loginFormSchema = yup
@@ -81,12 +60,9 @@ function LoginForm(props) {
 
 
 
-    const handleClick = (e) => {
-        e.preventDefault();
-        setDisplayEmail(!displayEmail);
-    };
 
-    const errorBorder = (error) => error && { borderColor: "red" };
+
+
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
@@ -144,7 +120,10 @@ function LoginForm(props) {
 
                                     {...register("email")}
                                 />
-                                <Alert severity="error">{errors?.password?.message}</Alert>
+                                {errors?.email?.message && (
+                                    <Alert severity="error">{errors.email.message}</Alert>
+                                )}
+
                             </Grid>
 
 
@@ -164,16 +143,16 @@ function LoginForm(props) {
 
                                 />
 
-                                <Alert severity="error">{errors?.password?.message}</Alert>;
+                                {errors?.password?.message && (
+                                    <Alert severity="error">{errors.password.message}</Alert>
+                                )}
 
                             </Grid>
 
 
-
-                            <p> {serverErrorMessage} </p>
                         </Grid>
                         <Button
-                            text={buttonText}
+
                             type="submit"
                             fullWidth
                             variant="contained"
