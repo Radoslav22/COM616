@@ -15,6 +15,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
+import useAuth from '../services/firebase/useAuth';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -69,6 +70,9 @@ export default function PrimarySearchAppBar() {
 
     const isMenuOpenmain = Boolean(anchorElmain);
     const isMobileMenuOpenmain = Boolean(mobileMoreAnchorElmain);
+
+    const { user, signUserOut } = useAuth();
+    console.log(user);
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -140,8 +144,9 @@ export default function PrimarySearchAppBar() {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+            <MenuItem onClick={handleMenuClose}>{user.displayName || user.email}  </MenuItem>
+
+            <MenuItem onClick={signUserOut}>Logout</MenuItem>
         </Menu>
     );
 
@@ -183,6 +188,7 @@ export default function PrimarySearchAppBar() {
                 <p>Notifications</p>
             </MenuItem>
             <MenuItem onClick={handleProfileMenuOpen}>
+
                 <IconButton
                     size="large"
                     aria-label="account of current user"
@@ -190,9 +196,10 @@ export default function PrimarySearchAppBar() {
                     aria-haspopup="true"
                     color="inherit"
                 >
+
                     <AccountCircle />
                 </IconButton>
-                <p>Profile</p>
+
             </MenuItem>
         </Menu>
     );
