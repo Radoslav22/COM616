@@ -11,7 +11,7 @@ function useAuth() {
     const auth = getAuth();
 
     const googleProvider = new GoogleAuthProvider();
-    const facebookProvider = new FacebookAuthProvider
+    const facebookProvider = new FacebookAuthProvider();
 
     useEffect(() => {
 
