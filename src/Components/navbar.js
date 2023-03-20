@@ -16,6 +16,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import useAuth from '../services/firebase/useAuth';
+import { Bolt } from '@mui/icons-material';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -144,11 +145,12 @@ export default function PrimarySearchAppBar() {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleMenuClose}>{user.displayName || user.email}  </MenuItem>
-
+            <MenuItem onClick={handleMenuClose}><strong>Hi, {user.displayName || user.email}</strong></MenuItem>
+            <MenuItem >Booking Details</MenuItem>
             <MenuItem onClick={signUserOut}>Logout</MenuItem>
         </Menu>
     );
+    const avatar = (<AccountCircle />)
 
     const mobileMenuId = 'primary-search-account-menu-mobile';
     const renderMobileMenu = (
@@ -199,7 +201,7 @@ export default function PrimarySearchAppBar() {
 
                     <AccountCircle />
                 </IconButton>
-
+                <p>{user.displayName || user.email}</p>
             </MenuItem>
         </Menu>
     );
@@ -229,6 +231,7 @@ export default function PrimarySearchAppBar() {
                         sx={{ display: { xs: 'none', sm: 'block' } }}
                     >
                         SeatMeNow
+
                     </Typography>
                     <Search>
                         <SearchIconWrapper>
@@ -260,9 +263,14 @@ export default function PrimarySearchAppBar() {
                             onClick={handleProfileMenuOpen}
                             color="inherit"
                         >
-                            <AccountCircle />
+                            {user.photoURL ? (
+                                <img style={{ width: "40px", height: "40px", borderRadius: "50%", border: "1px solid black" }} src={user.photoURL} alt="avatar" />
+                            ) : (
+                                <AccountCircle />
+                            )}
                         </IconButton>
                     </Box>
+
                     <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
                             size="large"
