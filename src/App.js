@@ -8,28 +8,23 @@ import Home from "./Views/Home";
 import Login from './Views/Login';
 import SignUp from './Views/Signup'
 import useAuth from './services/firebase/useAuth';
+import ProtectedRoutes from './Components/protectedRoutes';
 
 
 function App() {
   const app = initializeApp(firebaseConfig);
 
-  const { user, isAuthenticated, createEmailUser, signInEmailUser } =
+  const { createEmailUser, signInEmailUser } =
     useAuth();
-  const ProtectedRoute = ({ children }) => {
 
-    console.log(isAuthenticated);
-    return isAuthenticated ? children : <Navigate to="/login" />;
-  }
-  console.log(isAuthenticated);
-  console.log(user);
 
   return (
     <div className="app">
       <BrowserRouter>
         <Routes>
-
-          <Route path='/' element={<Home />} />
-
+          <Route element={<ProtectedRoutes />}>
+            <Route path='/' element={<Home />} />
+          </Route>
           <Route path="/login" element={<Login signInEmailUser={signInEmailUser} />} />
           <Route path="/signup" element={<SignUp createEmailUser={createEmailUser} />} />
 

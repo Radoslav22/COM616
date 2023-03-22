@@ -34,7 +34,8 @@ function Login() {
         <div>
             <Loginform
                 onEmailSubmit={handleEmailSubmit}
-                onSocialSubmit={handleSocialSubmit} />
+                onSocialSubmit={handleSocialSubmit}
+            />
 
 
         </div>

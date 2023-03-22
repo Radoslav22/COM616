@@ -3,6 +3,7 @@ import {
     signInWithEmailAndPassword, signInWithPopup, signOut
 } from "firebase/auth";
 import { useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
 
 
 function useAuth() {
@@ -20,6 +21,7 @@ function useAuth() {
                 setIsAuthenticated(true);
 
                 setUser(user);
+
                 return;
             }
             setIsAuthenticated(false);
