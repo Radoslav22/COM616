@@ -22,9 +22,9 @@ function App() {
     <div className="app">
       <BrowserRouter>
         <Routes>
-          <Route element={<ProtectedRoutes />}>
-            <Route path='/' element={<Home />} />
-          </Route>
+
+          <Route path='/' element={<Home />} />
+
           <Route path="/login" element={<Login signInEmailUser={signInEmailUser} />} />
           <Route path="/signup" element={<SignUp createEmailUser={createEmailUser} />} />
 

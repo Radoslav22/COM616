@@ -1,7 +1,7 @@
 import React from "react";
 
 import Form from "../Components/signupform";
-
+import { useNavigate } from 'react-router-dom';
 import useAuth from "../services/firebase/useAuth";
 
 
@@ -9,12 +9,12 @@ import useAuth from "../services/firebase/useAuth";
 function Signup(props) {
     const { createEmailUser, signInFacebookUser, signInGoogleUser } = useAuth();
 
-
+    const navigate = useNavigate();
     const handleEmailSubmit = async (data) => {
         try {
             const { email, password } = data;
             await createEmailUser(email, password);
-            console.log(data);
+            navigate('/');
         } catch (e) {
             console.log(e.message);
         }
@@ -24,9 +24,11 @@ function Signup(props) {
         try {
             if (method === "facebook") {
                 await signInFacebookUser();
+                navigate('/');
             }
             if (method === "google") {
                 await signInGoogleUser();
+                navigate('/');
             }
         } catch (error) {
             console.log("error");

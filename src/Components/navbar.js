@@ -17,6 +17,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import useAuth from '../services/firebase/useAuth';
 import { Bolt } from '@mui/icons-material';
+import { Link } from 'react-router-dom';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -72,7 +73,7 @@ export default function PrimarySearchAppBar() {
     const isMenuOpenmain = Boolean(anchorElmain);
     const isMobileMenuOpenmain = Boolean(mobileMoreAnchorElmain);
 
-    const { user, signUserOut } = useAuth();
+    const { user, signUserOut, isAuthenticated } = useAuth();
     console.log(user);
 
     const handleProfileMenuOpen = (event) => {
@@ -130,25 +131,52 @@ export default function PrimarySearchAppBar() {
     );
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
-        <Menu
-            anchorEl={anchorEl}
-            anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            id={menuId}
-            keepMounted
-            transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            open={isMenuOpen}
-            onClose={handleMenuClose}
-        >
-            <MenuItem onClick={handleMenuClose}><strong>Hi, {user.displayName || user.email}</strong></MenuItem>
-            <MenuItem >Booking Details</MenuItem>
-            <MenuItem onClick={signUserOut}>Logout</MenuItem>
-        </Menu>
+        <div>
+            {isAuthenticated ? (
+                <Menu
+                    anchorEl={anchorEl}
+                    anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }}
+                    id={menuId}
+                    keepMounted
+                    transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }}
+                    open={isMenuOpen}
+                    onClose={handleMenuClose}
+                >
+
+                    <MenuItem onClick={handleMenuClose}><strong>Hi, {user.displayName || user.email}</strong></MenuItem>
+                    <MenuItem onClick={handleMenuClose}>Booking Details</MenuItem>
+                    <MenuItem onClick={signUserOut}>Logout</MenuItem>
+
+
+
+                </Menu>
+            ) : (
+                <Menu
+                    anchorEl={anchorEl}
+                    anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }}
+                    id={menuId}
+                    keepMounted
+                    transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }}
+                    open={isMenuOpen}
+                    onClose={handleMenuClose}
+                >
+                    <Link style={{ textDecoration: "none", color: "black" }} to="/login"><MenuItem onClick={handleMenuClose} >Login</MenuItem></Link>
+                </Menu>
+            )
+            }
+        </div >
     );
     const avatar = (<AccountCircle />)
 
@@ -266,6 +294,7 @@ export default function PrimarySearchAppBar() {
                             {user.photoURL ? (
                                 <img style={{ width: "40px", height: "40px", borderRadius: "50%", border: "1px solid black" }} src={user.photoURL} alt="avatar" />
                             ) : (
+
                                 <AccountCircle />
                             )}
                         </IconButton>
