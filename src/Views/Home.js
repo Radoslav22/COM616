@@ -14,7 +14,7 @@ function Home() {
         <div>
             <NavBar></NavBar>
             <GoogleMap></GoogleMap>
-            <Box sx={{ position: "absolute", top: "9%", left: 0, marginRight: "80%", padding: "2px", maxHeight: '100%', overflow: "auto" }}>
+            <Box sx={{ position: "absolute", top: "9%", left: 0, marginRight: "70%", padding: "2px", maxHeight: '100%', overflow: "auto" }}>
                 <Grid sx={{ paddingBottom: "2px" }}>
                     <Restaurants></Restaurants>
                 </Grid>

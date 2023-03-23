@@ -9,6 +9,7 @@ import Login from './Views/Login';
 import SignUp from './Views/Signup'
 import useAuth from './services/firebase/useAuth';
 import ProtectedRoutes from './Components/protectedRoutes';
+import Book from './Views/Book'
 
 
 function App() {
@@ -24,7 +25,7 @@ function App() {
         <Routes>
 
           <Route path='/' element={<Home />} />
-
+          <Route path='/book' element={<Book />} />
           <Route path="/login" element={<Login signInEmailUser={signInEmailUser} />} />
           <Route path="/signup" element={<SignUp createEmailUser={createEmailUser} />} />
 

@@ -7,6 +7,8 @@ import Typography from '@mui/material/Typography';
 import ButtonBase from '@mui/material/ButtonBase';
 import Restaurants from "../assets/r.jpg"
 import useRestaurants from "../services/firebase/useRestaurants"
+import StarHalfIcon from '@mui/icons-material/StarHalf';
+import { Button } from '@mui/material';
 
 const Img = styled('img')({
     margin: 'auto',
@@ -46,7 +48,7 @@ export default function RestaurantsDisplay() {
             {restaurants.map(r => (
 
 
-                <Paper
+                <Paper key={r.id}
                     sx={{
                         p: 2,
                         margin: 'auto',
@@ -70,29 +72,31 @@ export default function RestaurantsDisplay() {
                             </ButtonBase>
                         </Grid>
                         <Grid item xs={12} sm container>
-                            <Grid item xs container direction="column" spacing={2}>
+                            <Grid item xs container direction="column" spacing={2} >
                                 <Grid item xs>
                                     <Typography gutterBottom variant="subtitle1" component="div">
-                                        {r.name}
-                                    </Typography>
-                                    <Typography variant="body2" gutterBottom>
-                                        {r.number}
+                                        {r.name}  <StarHalfIcon sx={{ color: "#FBBC04", height: "16px", width: "16px" }} />{r.review}
                                     </Typography>
                                     <Typography variant="body2" color="text.secondary">
                                         {r.type}
                                     </Typography>
+                                    <Typography variant="body2" gutterBottom>
+                                        {r.address}
+                                    </Typography>
+                                    <Typography variant='body2' glutterBottom>
+                                        Average price: £{r.avgprice}
+                                    </Typography>
+                                    <Typography variant='body2' glutterBottom>
+                                        <Button sx={{ ml: 22 }}>Book</Button>
+                                    </Typography>
                                 </Grid>
                                 <Grid item>
                                     <Typography sx={{ cursor: 'pointer' }} variant="body2">
-                                        R
+
                                     </Typography>
                                 </Grid>
                             </Grid>
-                            <Grid item>
-                                <Typography variant="subtitle1" component="div">
-                                    $19.00
-                                </Typography>
-                            </Grid>
+
                         </Grid>
                     </Grid>
 
