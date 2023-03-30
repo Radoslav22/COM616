@@ -9,22 +9,30 @@ import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
+
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import useAuth from '../services/firebase/useAuth';
-import { Bolt } from '@mui/icons-material';
+
 import { Link } from 'react-router-dom';
+import Logo from '../assets/Logo.png'
+
+const Img = styled('img')({
+    margin: 'auto',
+    display: 'block',
+    maxWidth: '10vw',
+    maxHeight: '10vh',
+});
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    backgroundColor: alpha(theme.palette.common.white, 0.35),
     '&:hover': {
-        backgroundColor: alpha(theme.palette.common.white, 0.25),
+        backgroundColor: alpha(theme.palette.common.white, 0.45),
     },
     marginRight: theme.spacing(2),
     marginLeft: 0,
@@ -46,7 +54,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: 'inherit',
+    color: 'grey',
     '& .MuiInputBase-input': {
         padding: theme.spacing(1, 1, 1, 0),
         // vertical padding + font size from searchIcon
@@ -63,15 +71,13 @@ export default function PrimarySearchAppBar() {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
-    const [anchorElmain, setAnchorElmain] = React.useState(null);
-    const [mobileMoreAnchorElmain, setMobileMoreAnchorElmain] = React.useState(null);
+
 
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-    const isMenuOpenmain = Boolean(anchorElmain);
-    const isMobileMenuOpenmain = Boolean(mobileMoreAnchorElmain);
+
 
     const { user, signUserOut, isAuthenticated } = useAuth();
 
@@ -79,56 +85,26 @@ export default function PrimarySearchAppBar() {
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
     };
-    const handleProfileMenuOpenMain = (event) => {
-        setAnchorElmain(event.currentTarget);
-    };
+
 
     const handleMobileMenuClose = () => {
         setMobileMoreAnchorEl(null);
     };
-    const handleMobileMenuCloseMain = () => {
-        setMobileMoreAnchorElmain(null);
-    };
+
 
     const handleMenuClose = () => {
         setAnchorEl(null);
         handleMobileMenuClose();
     };
 
-    const handleMenuCloseMain = () => {
-        setAnchorElmain(null);
-        handleMobileMenuCloseMain();
-    };
+
 
     const handleMobileMenuOpen = (event) => {
         setMobileMoreAnchorEl(event.currentTarget);
     };
-    const handleMobileMenuOpenMain = (event) => {
-        setMobileMoreAnchorElmain(event.currentTarget);
-    };
 
-    const mainmenuId = 'main-menu';
-    const renderMainMenu = (
-        <Menu
-            id="demo-positioned-menu"
-            aria-labelledby="demo-positioned-button"
-            anchorEl={anchorElmain}
-            open={isMenuOpenmain}
-            onClose={handleMenuCloseMain}
-            anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-            }}
-            transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-            }}
-        >
-            <MenuItem onClick={handleMenuCloseMain}>Profilasde</MenuItem>
-            <MenuItem onClick={handleMenuCloseMain}>My account</MenuItem>
-            <MenuItem onClick={handleMenuCloseMain}>Logout</MenuItem>
-        </Menu>
-    );
+
+
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
         <div>
@@ -235,35 +211,25 @@ export default function PrimarySearchAppBar() {
     );
 
     return (
-        <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
-                <Toolbar>
-                    <IconButton
-                        size="large"
-                        aria-label="show more"
-                        aria-controls={mainmenuId}
-                        aria-haspopup="true"
-                        onClick={handleProfileMenuOpenMain}
-                        color="inherit"
-                        sx={{ mr: 2 }}
-                    >
-                        <MenuIcon
+        <Box sx={{ flexGrow: 1, }}>
+            <AppBar position="static" sx={{
+                backgroundColor: '#eee',
+                boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.3)',
+            }}>
+                <Toolbar >
 
-                        />
-
-                    </IconButton>
                     <Typography
                         variant="h6"
                         noWrap
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'block' } }}
                     >
-                        SeatMeNow
+                        <Link to={"/home"}><Img src={Logo} alt="complex" /></Link>
 
                     </Typography>
                     <Search>
                         <SearchIconWrapper>
-                            <SearchIcon />
+                            <SearchIcon sx={{ color: "black" }} />
                         </SearchIconWrapper>
                         <StyledInputBase
                             placeholder="Search…"
@@ -279,7 +245,7 @@ export default function PrimarySearchAppBar() {
                             color="inherit"
                         >
                             <Badge badgeContent={17} color="error">
-                                <NotificationsIcon />
+                                <NotificationsIcon sx={{ color: "black" }} />
                             </Badge>
                         </IconButton>
                         <IconButton
@@ -316,7 +282,7 @@ export default function PrimarySearchAppBar() {
             </AppBar>
             {renderMobileMenu}
             {renderMenu}
-            {renderMainMenu}
+
         </Box>
     );
 }

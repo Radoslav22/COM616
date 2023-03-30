@@ -10,6 +10,7 @@ import SignUp from './Views/Signup'
 import useAuth from './services/firebase/useAuth';
 import ProtectedRoutes from './Components/protectedRoutes';
 import Book from './Views/Book'
+import Home2 from "./Views/Home2"
 
 
 function App() {
@@ -24,7 +25,8 @@ function App() {
       <BrowserRouter>
         <Routes>
 
-          <Route path='/' element={<Home />} />
+          <Route element={<ProtectedRoutes />}><Route path='/' element={<Home />} /></Route>
+          <Route path='/home' element={<Home2 />}></Route>
           <Route path='/book' element={<Book />} />
           <Route path="/login" element={<Login signInEmailUser={signInEmailUser} />} />
           <Route path="/signup" element={<SignUp createEmailUser={createEmailUser} />} />
