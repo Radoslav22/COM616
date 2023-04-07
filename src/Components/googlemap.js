@@ -6,9 +6,10 @@ const AnyReactComponent = ({ text }) => <div>{text}</div>;
 export default function SimpleMap() {
   const defaultProps = {
     center: {
-      lat: 10.99835602,
-      lng: 77.01502627
+      lat: 50.91165989082162,
+      lng: -1.4038708445833388
     },
+
     zoom: 11
   };
 

@@ -18,9 +18,11 @@ function Home() {
 
             <React.Fragment>
 
-                <Container maxWidth={"xl"} style={{ width: "100%", height: "80vh", backgroundImage: `url(${foodplate})`, backgroundSize: "cover", backgroundPosition: "center center", backgroundRepeat: "no-repeat" }}>
+                <Container maxWidth={"xl"} style={{ marginTop: "2px", width: "100%", height: "80vh", backgroundImage: `url(${foodplate})`, backgroundSize: "cover", backgroundPosition: "center center", backgroundRepeat: "no-repeat", }}>
+                    <Box maxWidth={"sm"} maxHeight={"sm"} sx={{ alignContent: "center", background: "white" }}>
+                        <Typography>Discover and book the best restaurants</Typography>
+                    </Box>
 
-                    <Typography>Discover and book the best restaurants</Typography>
 
                 </Container>
                 <Container maxWidth={"sm"}>

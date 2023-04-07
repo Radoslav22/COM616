@@ -17,10 +17,10 @@ const Img = styled('img')({
     maxHeight: '100%',
 });
 
-export default function RestaurantsDisplay() {
+export default function RestaurantsDisplay(props) {
     const [restaurants, setRestaurants] = useState([]);
     const { getRestaurants } = useRestaurants();
-
+    const value = props.value
     const getRestaurantsData = async () => {
 
         try {
@@ -45,7 +45,9 @@ export default function RestaurantsDisplay() {
     return (
         <div>
 
-            {restaurants.map(r => (
+            {restaurants.filter((r) => {
+                return value.toLowerCase() === '' ? r : r.name.toLowerCase().includes(value)
+            }).map(r => (
 
 
                 <Paper key={r.id}

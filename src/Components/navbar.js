@@ -19,6 +19,8 @@ import useAuth from '../services/firebase/useAuth';
 
 import { Link } from 'react-router-dom';
 import Logo from '../assets/Logo.png'
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 const Img = styled('img')({
     margin: 'auto',
@@ -30,9 +32,9 @@ const Img = styled('img')({
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.35),
+    backgroundColor: alpha(theme.palette.common.white, 0.65),
     '&:hover': {
-        backgroundColor: alpha(theme.palette.common.white, 0.45),
+        backgroundColor: alpha(theme.palette.common.white, 0.95),
     },
     marginRight: theme.spacing(2),
     marginLeft: 0,
@@ -67,20 +69,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-export default function PrimarySearchAppBar() {
+export default function PrimarySearchAppBar(props) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
-
-
-
+    const onChange = props.onChange
+    const value = props.value
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-
-
     const { user, signUserOut, isAuthenticated } = useAuth();
 
+    // useEffect(() => {
+    // (event => setValue(event.target.value))
+    // }, [value])
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -213,8 +213,8 @@ export default function PrimarySearchAppBar() {
     return (
         <Box sx={{ flexGrow: 1, }}>
             <AppBar position="static" sx={{
-                backgroundColor: '#eee',
-                boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.3)',
+                backgroundColor: '#dfdfdf',
+
             }}>
                 <Toolbar >
 
@@ -228,13 +228,18 @@ export default function PrimarySearchAppBar() {
 
                     </Typography>
                     <Search>
-                        <SearchIconWrapper>
-                            <SearchIcon sx={{ color: "black" }} />
-                        </SearchIconWrapper>
-                        <StyledInputBase
-                            placeholder="Search…"
-                            inputProps={{ 'aria-label': 'search' }}
-                        />
+                        <form>
+                            <SearchIconWrapper>
+                                <SearchIcon sx={{ color: "black" }} />
+                            </SearchIconWrapper>
+                            <StyledInputBase
+                                placeholder="Search…"
+                                inputProps={{ 'aria-label': 'search' }}
+                                onChange={onChange}
+                                value={value}
+                            />
+                            <span></span>
+                        </form>
                     </Search>
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
@@ -283,6 +288,6 @@ export default function PrimarySearchAppBar() {
             {renderMobileMenu}
             {renderMenu}
 
-        </Box>
+        </Box >
     );
 }
