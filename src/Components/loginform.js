@@ -2,7 +2,6 @@ import React from 'react';
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -11,15 +10,21 @@ import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import GoogleIcon from '@mui/icons-material/Google';
 import FacebookIcon from '@mui/icons-material/Facebook';
+import Logo from '../assets/Logo.png'
+import { styled } from '@mui/material/styles';
 
 import { Alert } from '@mui/material';
-
+const Img = styled('img')({
+    margin: 'auto',
+    display: 'block',
+    maxWidth: '20vw',
+    maxHeight: '20vh',
+});
 
 function Copyright(props) {
     return (
@@ -75,10 +80,8 @@ export default function SignIn(props) {
                         flexDirection: 'column',
                         alignItems: 'center',
                     }}
-                >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                        <LockOutlinedIcon />
-                    </Avatar>
+                ><Img src={Logo} alt="System-Logo" />
+
                     <Typography component="h1" variant="h5">
                         Sign in
                     </Typography>
@@ -130,11 +133,13 @@ export default function SignIn(props) {
                                     variant="contained"
                                     sx={{ mt: 3, mb: 2 }}
                                 >
-                                    Login
+                                    Continue
                                 </Button>
                             </Grid>
                         </Grid>
+
                     </form>
+                    <Typography component="h2" style={{ textAlign: "center" }}>OR</Typography>
                     <Button
                         startIcon={<FacebookIcon />}
                         type="submit"

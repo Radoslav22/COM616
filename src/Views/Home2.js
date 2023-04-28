@@ -15,6 +15,8 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import useRestaurants from '../services/firebase/useRestaurants';
 import Grid from '@mui/material/Grid';
+import StarHalfIcon from '@mui/icons-material/StarHalf';
+
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -80,7 +82,7 @@ function Home() {
     useEffect(() => {
         getRestaurantsData();
     },);
-    console.log(restaurants)
+
     return (
         <div>
             <NavBar></NavBar>
@@ -88,7 +90,7 @@ function Home() {
             <React.Fragment>
 
                 <Container maxWidth={"xl"} style={{ display: "inline-block", marginTop: "2px", width: "100%", height: "80vh", backgroundImage: `url(${foodplate})`, backgroundSize: "cover", backgroundPosition: "center center", backgroundRepeat: "no-repeat", }}>
-                    <Box maxWidth={"sm"} maxHeight={"sm"} sx={{ boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)", height: "31vh", marginLeft: "15vw", marginTop: "22vh", alignContent: "center", background: "white" }}>
+                    <Box maxWidth={"sm"} maxHeight={"sm"} sx={{ boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)", height: "3vh", marginLeft: "15vw", marginTop: "22vh", alignContent: "center", background: "white" }}>
                         <Typography variant='h4' sx={{ marginTop: 5, textShadow: "0 0 3px #ADC0C7, 0 0 5px #ADC0C7", color: "#6f6f6f" }}>Discover and book the best restaurants</Typography>
                         <Typography sx={{ marginLeft: "2vw", marginTop: "1vh", fontSize: "14px" }}>What?</Typography>
                         <Search>
@@ -121,7 +123,7 @@ function Home() {
 
 
                 </Container>
-                <Container sx={{ width: "60%" }}>
+                <Container sx={{ width: "70%" }}>
                     <Typography variant='h5'>Choosen for you</Typography>
                     <p>Same</p>
                     <Typography variant='h5'>Popular in Southampton</Typography>
@@ -141,13 +143,14 @@ function Home() {
                                 />
 
                                 <CardContent>
-                                    <Typography gutterBottom variant="h6" component="div">
-                                        {r.name}
+                                    <Typography gutterBottom component="div">
+                                        {r.name} <StarHalfIcon sx={{ color: "#FBBC04", height: "16px", width: "16px" }} />{r.review}
                                     </Typography>
                                     <Typography variant="body2" color="text.secondary">
-                                        {r.avgprice}
-                                        {r.type}
-                                        {r.review}
+
+                                        {r.type}<br />
+                                        Average price: £{r.avgprice} <br />
+
                                     </Typography>
                                 </CardContent>
 

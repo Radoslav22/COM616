@@ -9,18 +9,15 @@ import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import useAuth from '../services/firebase/useAuth';
-
 import { Link } from 'react-router-dom';
 import Logo from '../assets/Logo.png'
-import { useState } from 'react';
-import { useEffect } from 'react';
+
 
 const Img = styled('img')({
     margin: 'auto',
@@ -154,7 +151,7 @@ export default function PrimarySearchAppBar(props) {
             }
         </div >
     );
-    const avatar = (<AccountCircle />)
+
 
     const mobileMenuId = 'primary-search-account-menu-mobile';
     const renderMobileMenu = (
@@ -224,7 +221,7 @@ export default function PrimarySearchAppBar(props) {
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'block' } }}
                     >
-                        <Link to={"/home"}><Img src={Logo} alt="complex" /></Link>
+                        <Link to={"/home"}><Img src={Logo} alt="System-Logo" /></Link>
 
                     </Typography>
                     <Search>
