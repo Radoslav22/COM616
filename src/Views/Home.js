@@ -16,7 +16,8 @@ import CardMedia from '@mui/material/CardMedia';
 import useRestaurants from '../services/firebase/useRestaurants';
 import Grid from '@mui/material/Grid';
 import StarHalfIcon from '@mui/icons-material/StarHalf';
-
+import StarsIcon from '@mui/icons-material/Stars';
+import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -124,10 +125,18 @@ function Home() {
 
                 </Container>
                 <Container sx={{ width: "70%" }}>
-                    <Typography variant='h5'>Choosen for you</Typography>
-                    <p>Same</p>
-                    <Typography variant='h5'>Popular in Southampton</Typography>
+                    <Typography variant='h5' sx={{ textDecoration: "underline" }}>Choosen for you</Typography>
                     <Grid
+                        sx={{ marginTop: "2vh" }}
+                        container
+                        direction="row"
+                        justifyContent="space-between"
+                        alignItems="strech">
+                        <p>Try To Display randomly</p>
+                    </Grid>
+                    <Typography variant='h5' sx={{ textDecoration: "underline" }}>Popular in Southampton</Typography>
+                    <Grid
+                        sx={{ marginTop: "2vh" }}
                         container
                         direction="row"
                         justifyContent="space-between"
@@ -157,7 +166,49 @@ function Home() {
                             </Card>
                         ))}
                     </Grid>
-                    <Typography variant='h5'>How does it works?</Typography>
+                    <Typography variant='h5' sx={{ textDecoration: "underline" }}>How does it works?</Typography>
+                    <Grid
+                        sx={{ marginTop: "2vh" }}
+                        container
+                        direction="row"
+                        justifyContent="space-around">
+                        <Card sx={{ maxWidth: 250 }}>
+                            <StarsIcon sx={{ width: "80px", height: "80px", color: "#FBBC04", marginLeft: "5vw", marginTop: "2vh" }} />
+                            <CardContent>
+                                <Typography gutterBottom variant="h6" component="div">
+                                    Best Choice
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary">
+                                    You'll find a wide selection of restaurants suited to your every need.
+                                </Typography>
+                            </CardContent>
+
+                        </Card>
+                        <Card sx={{ maxWidth: 250 }}>
+                            <StarHalfIcon sx={{ width: "80px", height: "80px", color: "#FBBC04", marginLeft: "5vw", marginTop: "2vh" }} />
+                            <CardContent>
+                                <Typography gutterBottom variant="h6" component="div">
+                                    Reviews
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary">
+                                    Recommendations and reviews from a powerful community.
+                                </Typography>
+                            </CardContent>
+
+                        </Card>
+                        <Card sx={{ maxWidth: 250 }}>
+                            <EventAvailableIcon sx={{ width: "80px", height: "80px", color: "#FBBC04", marginLeft: "5vw", marginTop: "2vh" }} />
+                            <CardContent>
+                                <Typography gutterBottom variant="h6" component="div">
+                                    Easy Booking
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary">
+                                    Instant, free, everywhere 24/7.
+                                </Typography>
+                            </CardContent>
+
+                        </Card>
+                    </Grid>
                 </Container>
             </React.Fragment>
 

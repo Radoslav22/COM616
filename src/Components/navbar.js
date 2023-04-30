@@ -221,7 +221,7 @@ export default function PrimarySearchAppBar(props) {
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'block' } }}
                     >
-                        <Link to={"/home"}><Img src={Logo} alt="System-Logo" /></Link>
+                        <Link to={"/"}><Img src={Logo} alt="System-Logo" /></Link>
 
                     </Typography>
                     <Search>

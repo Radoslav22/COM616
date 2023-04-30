@@ -25,7 +25,7 @@ function App() {
       <BrowserRouter>
         <Routes>
 
-          <Route element={<ProtectedRoutes />}><Route path='/map' element={<Map />} /></Route>
+          <Route element={<ProtectedRoutes />}><Route path='/restaurants' element={<Map />} /></Route>
           <Route path='/' element={<Home />}></Route>
           <Route path='/book' element={<Book />} />
           <Route path="/login" element={<Login signInEmailUser={signInEmailUser} />} />
