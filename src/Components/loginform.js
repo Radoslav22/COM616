@@ -127,14 +127,14 @@ export default function SignIn(props) {
                             </Grid>
                             <Grid item xs={12}>
                                 <Button
-
                                     type="submit"
                                     fullWidth
                                     variant="contained"
-                                    sx={{ mt: 3, mb: 2 }}
+                                    sx={{ mt: 3, mb: 2, backgroundColor: "#CBA500" }}
                                 >
                                     Continue
                                 </Button>
+
                             </Grid>
                         </Grid>
 
