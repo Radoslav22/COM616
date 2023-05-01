@@ -9,6 +9,7 @@ import Restaurants from "../assets/r.jpg"
 import useRestaurants from "../services/firebase/useRestaurants"
 import StarHalfIcon from '@mui/icons-material/StarHalf';
 import { Button } from '@mui/material';
+import Link from '@mui/material/Link';
 
 const Img = styled('img')({
     margin: 'auto',
@@ -89,7 +90,8 @@ export default function RestaurantsDisplay(props) {
                                         Average price: £{r.avgprice}
                                     </Typography>
                                     <Typography variant='body2' glutterBottom>
-                                        <Button sx={{ ml: 22 }}>Book</Button>
+                                        <Link href={"/book/" + r.id}><Button sx={{ ml: 22 }}>Book {r.id}</Button></Link>
+
                                     </Typography>
                                 </Grid>
                                 <Grid item>
@@ -103,7 +105,8 @@ export default function RestaurantsDisplay(props) {
                     </Grid>
 
                 </Paper >
-            ))}
-        </div>
+            ))
+            }
+        </div >
     );
 }

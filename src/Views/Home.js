@@ -59,10 +59,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
         },
     },
 }));
+const getRandomObject = (array) => {
+    const randomObject = array[Math.floor(Math.random() * array.length)];
+    return randomObject;
+};
 function Home() {
     const [restaurants, setRestaurants] = useState([]);
     const { getRestaurants } = useRestaurants();
-
+    const [randomData, setRandomData] = useState(() => getRandomObject(restaurants));
     const getRestaurantsData = async () => {
 
         try {
@@ -132,10 +136,12 @@ function Home() {
                         direction="row"
                         justifyContent="space-between"
                         alignItems="strech">
-                        <p>Try To Display randomly</p>
+                        {restaurants.filter((item, index) => index < 3).map(r => (
+                            <p>{r.name}</p>
+                        ))}
                     </Grid>
                     <Typography variant='h5' sx={{ textDecoration: "underline" }}>Popular in Southampton</Typography>
-                    <Grid
+                    {/* <Grid
                         sx={{ marginTop: "2vh" }}
                         container
                         direction="row"
@@ -165,7 +171,7 @@ function Home() {
 
                             </Card>
                         ))}
-                    </Grid>
+                    </Grid> */}
                     <Typography variant='h5' sx={{ textDecoration: "underline" }}>How does it works?</Typography>
                     <Grid
                         sx={{ marginTop: "2vh" }}

@@ -11,6 +11,7 @@ import useAuth from './services/firebase/useAuth';
 import ProtectedRoutes from './Components/protectedRoutes';
 import Book from './Views/Book'
 import Home from "./Views/Home"
+import Booking from "./Views/Booking"
 
 
 function App() {
@@ -27,7 +28,8 @@ function App() {
 
           <Route element={<ProtectedRoutes />}><Route path='/restaurants' element={<Map />} /></Route>
           <Route path='/' element={<Home />}></Route>
-          <Route path='/book' element={<Book />} />
+          <Route path='/book/:restaurant_id' element={<Book />} />
+          <Route path='/book-table/:table_id' element={<Booking />} />
           <Route path="/login" element={<Login signInEmailUser={signInEmailUser} />} />
           <Route path="/signup" element={<SignUp createEmailUser={createEmailUser} />} />
 
