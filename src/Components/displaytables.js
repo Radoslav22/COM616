@@ -33,6 +33,40 @@ const DisplayTable = () => {
     const { getBooking } = useBookings();
     let { restaurant_id } = useParams();
 
+    const [date, setDate] = useState("");
+    const [time, setTime] = useState("");
+    function format(date) {
+        if (!(date instanceof Date)) {
+            throw new Error('Invalid "date" argument. You must pass a date instance')
+        }
+
+        const year = date.getFullYear()
+        const month = String(date.getMonth() + 1).padStart(2, '0')
+        const day = String(date.getDate()).padStart(2, '0')
+
+        return `${year}-${month}-${day}`
+    }
+    function formatTime(time) {
+        let data = time.split(":")
+        return parseInt(data[0]) * 60 + parseInt(data[1])
+    }
+    useEffect(() => {
+        const now = new Date();
+
+        setDate(format(now));
+    }, []);
+
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            setTime(hours * 60 + minutes);
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, []);
     const getRestaurantsData = async () => {
 
         try {
@@ -55,6 +89,46 @@ const DisplayTable = () => {
     useEffect(() => {
         getRestaurantsData();
     }, []);
+    const getBookingData = async () => {
+
+        try {
+            const bookingSnap = await getBooking();
+            let booking = [];
+
+            if (bookingSnap.size) {
+                bookingSnap.forEach((doc) => {
+                    let b = doc.data()
+
+                    console.log(b.restaurantid, restaurant_id)
+                    if (b.restaurantid == restaurant_id) {
+                        let table_index = findTable(b.tableid)
+                        console.log(table_index)
+                        if (table_index >= 0) {
+                            if (b.date == date && parseInt(time) > formatTime(b.start) && parseInt(time) < formatTime(b.end)) {
+                                console.log(b.restaurantid, "reserved")
+                                table[table_index].open = false
+                                //table.push(table[table_index]);
+
+
+                            } else {
+                                console.log(b.restaurantid, "open")
+                            }
+                        }
+                        booking.push({ ...b, ...{ id: doc.id } });
+
+                    }
+                });
+
+                setBooking(booking.reverse());
+                console.log(table)
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    useEffect(() => {
+        getBookingData();
+    }, []);
 
     const getTablesData = async () => {
 
@@ -65,7 +139,7 @@ const DisplayTable = () => {
             if (tablesSnap.size) {
                 tablesSnap.forEach((doc) => {
 
-                    table.push({ ...doc.data(), ...{ id: doc.id } });
+                    table.push({ ...doc.data(), ...{ id: doc.id, open: true } });
 
                 });
 
@@ -77,38 +151,28 @@ const DisplayTable = () => {
     }
     useEffect(() => {
         getTablesData();
+
     }, []);
-
-    const getBookingData = async () => {
-
-        try {
-            const bookingSnap = await getBooking();
-            let booking = [];
-
-            if (bookingSnap.size) {
-                bookingSnap.forEach((doc) => {
-
-                    booking.push({ ...doc.data(), ...{ id: doc.id } });
-
-                });
-
-                setBooking(booking.reverse());
+    function findTable(tableid) {
+        let tableind
+        table.forEach((t, index) => {
+            if (t.id == tableid) {
+                tableind = index
             }
-        } catch (error) {
-            console.log(error);
-        }
+        })
+
+        return tableind
     }
-    useEffect(() => {
-        getBookingData();
-    }, []);
+    console.log(table)
 
-
+    console.log(booking)
 
 
 
     return (
         <div>
             <Link href="/restaurants"><Button color='success'>Go Back </Button></Link>
+
             {restaurants.filter(r => r.id === restaurant_id).map(r => (
                 <Paper key={r.id}
                     sx={{
@@ -163,16 +227,21 @@ const DisplayTable = () => {
                 </Paper >
 
             ))}
+            <p>This is current date {date}</p>
+            <p>This is current time {time}</p>
             <Grid
                 sx={{ marginTop: "2vh" }}
                 container
                 direction="row"
                 justifyContent="space-around">
-                {table.filter(t => t.restaurantid === restaurant_id).map(t => (
+                {table.map(t => (
 
 
                     <Card sx={{ minWidth: 275 }} key={t.id}>
                         <CardContent>
+                            <Typography variant='h6' color="text.secondary" gutterBottom>
+                                {t.open ? ("OPEN") : ("RESERVED")}
+                            </Typography>
                             <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                                 Number of table:{t.tablename}
                             </Typography>
@@ -191,7 +260,7 @@ const DisplayTable = () => {
 
                 ))}
             </Grid>
-            {/* <p>{restaurant_id}</p> */}
+            <p>{restaurant_id}</p>
 
         </div>
     );

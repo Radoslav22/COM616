@@ -137,7 +137,7 @@ function Home() {
                         justifyContent="space-between"
                         alignItems="strech">
                         {restaurants.filter((item, index) => index < 3).map(r => (
-                            <p>{r.name}</p>
+                            <p key={r.id}>{r.name}</p>
                         ))}
                     </Grid>
                     <Typography variant='h5' sx={{ textDecoration: "underline" }}>Popular in Southampton</Typography>

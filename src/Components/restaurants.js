@@ -90,7 +90,7 @@ export default function RestaurantsDisplay(props) {
                                         Average price: £{r.avgprice}
                                     </Typography>
                                     <Typography variant='body2' glutterBottom>
-                                        <Link href={"/book/" + r.id}><Button sx={{ ml: 22 }}>Book {r.id}</Button></Link>
+                                        <Link href={"/book/" + r.id}><Button sx={{ ml: 22 }}>Book </Button></Link>
 
                                     </Typography>
                                 </Grid>

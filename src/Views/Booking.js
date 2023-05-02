@@ -5,6 +5,7 @@ import Chat from '../Components/chat';
 import useBookings from '../services/firebase/useBooking';
 import useAuth from '../services/firebase/useAuth';
 import { useNavigate } from 'react-router-dom';
+import { NotificationManager } from 'react-notifications';
 
 function Booking() {
     const navigate = useNavigate();
@@ -25,14 +26,12 @@ function Booking() {
             },
         };
         try {
-            console.log("createbook before");
             await createBooking(tableRecord);
-
             navigate("/");
-            console.log("createbook after");
+            NotificationManager.success('You succesfully book a table!', 'Successful!', 2000);
         } catch (e) {
-            console.log("here", e);
-
+            console.log(e);
+            NotificationManager.error('Error while creating new booking!', 'Error!');
         }
     }
 

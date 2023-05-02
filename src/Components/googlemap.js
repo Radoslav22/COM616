@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import useRestaurants from "../services/firebase/useRestaurants";
 import GoogleMapReact from 'google-map-react';
-import { Marker } from "@react-google-maps/api";
+import Marker from 'google-map-react';
+
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
@@ -47,13 +48,10 @@ export default function SimpleMap() {
         defaultZoom={defaultProps.zoom}
       >
         {/* {restaurants.map(r => (
-          <Marker
-            position={{ lat: r.lat, lon: r.lon }}
-            // or use lat = {r.lat} lon = {r.lon}
-            title={r.name}
-          />
+           <Marker lat={37.7749} lng={-122.4194} text="My Marker" />
           //<Marker title={r.name} />
         ))} */}
+
       </GoogleMapReact>
     </div>
   );

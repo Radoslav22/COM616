@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -17,8 +17,20 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import useAuth from '../services/firebase/useAuth';
 import { Link } from 'react-router-dom';
 import Logo from '../assets/Logo.png'
-
-
+import Modal from '@mui/material/Modal';
+import Button from '@mui/material/Button';
+import useBookings from '../services/firebase/useBooking';
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+};
 const Img = styled('img')({
     margin: 'auto',
     display: 'block',
@@ -69,39 +81,100 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function PrimarySearchAppBar(props) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+    const [booking, setBooking] = useState([]);
+    const { getBooking } = useBookings();
+    const [anchorElmain, setAnchorElmain] = React.useState(null);
+    const [mobileMoreAnchorElmain, setMobileMoreAnchorElmain] = React.useState(null);
     const onChange = props.onChange
     const value = props.value
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
     const { user, signUserOut, isAuthenticated } = useAuth();
+    const isNotificationOpen = Boolean(anchorElmain);
+    const isMobileMenuOpenmain = Boolean(mobileMoreAnchorElmain);
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
     // useEffect(() => {
     // (event => setValue(event.target.value))
     // }, [value])
+    const getBookingData = async () => {
 
+        try {
+            const bookingSnap = await getBooking();
+            let booking = [];
+
+            if (bookingSnap.size) {
+                bookingSnap.forEach((doc) => {
+
+                    booking.push({ ...doc.data(), ...{ id: doc.id } });
+
+                });
+
+                setBooking(booking.reverse());
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    useEffect(() => {
+        getBookingData();
+    },);
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
     };
-
+    const handleNotificationOpen = (event) => {
+        setAnchorElmain(event.currentTarget);
+    };
 
     const handleMobileMenuClose = () => {
         setMobileMoreAnchorEl(null);
     };
-
+    const handleMobileMenuCloseMain = () => {
+        setMobileMoreAnchorElmain(null);
+    };
 
     const handleMenuClose = () => {
         setAnchorEl(null);
         handleMobileMenuClose();
     };
 
-
+    const handleNotificationClose = () => {
+        setAnchorElmain(null);
+        handleMobileMenuCloseMain();
+    };
 
     const handleMobileMenuOpen = (event) => {
         setMobileMoreAnchorEl(event.currentTarget);
     };
 
 
-
+    const handleMobileMenuOpenMain = (event) => {
+        setMobileMoreAnchorElmain(event.currentTarget);
+    };
+    const notificationId = 'main-menu';
+    const renderNotifications = (
+        <Menu
+            id="demo-positioned-menu"
+            aria-labelledby="demo-positioned-button"
+            anchorEl={anchorElmain}
+            open={isNotificationOpen}
+            onClose={handleNotificationClose}
+            anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+            }}
+            transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+            }}
+        >
+            <MenuItem onClick={handleNotificationClose}></MenuItem>
+            <MenuItem onClick={handleNotificationClose}></MenuItem>
+            <MenuItem onClick={handleNotificationClose}></MenuItem>
+        </Menu>
+    );
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
         <div>
@@ -123,8 +196,25 @@ export default function PrimarySearchAppBar(props) {
                 >
 
                     <MenuItem onClick={handleMenuClose}><strong>Hi, {user.displayName || user.email}</strong></MenuItem>
-                    <MenuItem onClick={handleMenuClose}>Booking Details</MenuItem>
+                    <MenuItem onClick={handleOpen}>Booking Details</MenuItem>
                     <MenuItem onClick={signUserOut}>Logout</MenuItem>
+                    <Modal
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                    >
+                        <Box sx={style}>
+                            <Typography id="modal-modal-title" variant="h6" component="h2">
+                                Hi, {user.displayName || user.email}. These are your booking details.
+                            </Typography>
+                            {/* {booking.map(b => (
+                                <Typography id="modal-modal-description" sx={{ mt: 2 }} key={b.id}>
+                                    Your booking is for: {b.date} at {b.start} till {b.end} for {b.people}.
+                                </Typography>
+                            ))} */}
+                        </Box>
+                    </Modal>
 
 
 
@@ -245,6 +335,9 @@ export default function PrimarySearchAppBar(props) {
                             size="large"
                             aria-label="show 17 new notifications"
                             color="inherit"
+                            aria-controls={notificationId}
+                            aria-haspopup="true"
+                            onClick={handleNotificationOpen}
 
                         >
                             <Badge badgeContent={17} color="error">
@@ -285,7 +378,7 @@ export default function PrimarySearchAppBar(props) {
             </AppBar>
             {renderMobileMenu}
             {renderMenu}
-
+            {renderNotifications}
         </Box >
     );
 }
