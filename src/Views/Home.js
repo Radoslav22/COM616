@@ -18,6 +18,7 @@ import Grid from '@mui/material/Grid';
 import StarHalfIcon from '@mui/icons-material/StarHalf';
 import StarsIcon from '@mui/icons-material/Stars';
 import EventAvailableIcon from '@mui/icons-material/EventAvailable';
+import Link from '@mui/material/Link';
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -123,7 +124,7 @@ function Home() {
                             />
 
                         </Search>
-                        <Button variant='contained' color='success' sx={{ width: "35vw", marginLeft: "2vw", marginTop: "2vh" }}>Search</Button>
+                        <Link href="/restaurants"><Button variant='contained' color='success' sx={{ width: "35vw", marginLeft: "2vw", marginTop: "2vh" }}>Search</Button></Link>
                     </Box>
 
 
@@ -131,18 +132,37 @@ function Home() {
                 <Container sx={{ width: "70%" }}>
                     <Typography variant='h5' sx={{ textDecoration: "underline" }}>Choosen for you</Typography>
                     <Grid
-                        sx={{ marginTop: "2vh" }}
+                        sx={{ marginTop: "2vh", marginBottom: "2vh" }}
                         container
                         direction="row"
                         justifyContent="space-between"
                         alignItems="strech">
                         {restaurants.filter((item, index) => index < 3).map(r => (
-                            <p key={r.id}>{r.name}</p>
+                            <Card sx={{ maxWidth: 400 }}>
+                                <CardMedia
+                                    sx={{ height: 100 }}
+                                    image={Restaurants}
+                                    title="restaurant image"
+                                />
+
+                                <CardContent>
+                                    <Typography gutterBottom component="div">
+                                        {r.name} <StarHalfIcon sx={{ color: "#FBBC04", height: "16px", width: "16px" }} />{r.review}
+                                    </Typography>
+                                    <Typography variant="body2" color="text.secondary">
+
+                                        {r.type}<br />
+                                        Average price: £{r.avgprice} <br />
+
+                                    </Typography>
+                                </CardContent>
+
+                            </Card>
                         ))}
                     </Grid>
                     <Typography variant='h5' sx={{ textDecoration: "underline" }}>Popular in Southampton</Typography>
-                    {/* <Grid
-                        sx={{ marginTop: "2vh" }}
+                    <Grid
+                        sx={{ marginTop: "2vh", marginBottom: "2vh" }}
                         container
                         direction="row"
                         justifyContent="space-between"
@@ -171,7 +191,7 @@ function Home() {
 
                             </Card>
                         ))}
-                    </Grid> */}
+                    </Grid>
                     <Typography variant='h5' sx={{ textDecoration: "underline" }}>How does it works?</Typography>
                     <Grid
                         sx={{ marginTop: "2vh" }}

@@ -11,7 +11,7 @@ function Login() {
         try {
             const { email, password } = data;
             await signInEmailUser(email, password);
-            navigate("/");
+            navigate("/restaurants");
         } catch (e) {
             console.log(e.message);
         }
@@ -21,11 +21,11 @@ function Login() {
         try {
             if (method === "facebook") {
                 await signInFacebookUser();
-                navigate("/");
+                navigate("/restaurants");
             }
             if (method === "google") {
                 await signInGoogleUser();
-                navigate("/");
+                navigate("/restaurants");
             }
         } catch (error) {
             console.log("error");

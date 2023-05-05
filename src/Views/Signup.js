@@ -14,7 +14,7 @@ function Signup(props) {
         try {
             const { email, password } = data;
             await createEmailUser(email, password);
-            navigate('/');
+            navigate('/restaurants');
         } catch (e) {
             console.log(e.message);
         }
@@ -24,11 +24,11 @@ function Signup(props) {
         try {
             if (method === "facebook") {
                 await signInFacebookUser();
-                navigate('/');
+                navigate('/restaurants');
             }
             if (method === "google") {
                 await signInGoogleUser();
-                navigate('/');
+                navigate('/restaurants');
             }
         } catch (error) {
             console.log("error");

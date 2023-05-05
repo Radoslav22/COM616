@@ -208,11 +208,11 @@ export default function PrimarySearchAppBar(props) {
                             <Typography id="modal-modal-title" variant="h6" component="h2">
                                 Hi, {user.displayName || user.email}. These are your booking details.
                             </Typography>
-                            {/* {booking.map(b => (
+                            {booking.map(b => (
                                 <Typography id="modal-modal-description" sx={{ mt: 2 }} key={b.id}>
                                     Your booking is for: {b.date} at {b.start} till {b.end} for {b.people}.
                                 </Typography>
-                            ))} */}
+                            ))}
                         </Box>
                     </Modal>
 

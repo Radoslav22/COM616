@@ -47,10 +47,10 @@ export default function SimpleMap() {
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}
       >
-        {/* {restaurants.map(r => (
-           <Marker lat={37.7749} lng={-122.4194} text="My Marker" />
-          //<Marker title={r.name} />
-        ))} */}
+        {restaurants.map(r => (
+          <Marker position={{ lat: r.lat, lon: r.lon }} title={r.name} />
+          //<Marker lat={r.lat} lon={r.lon} title={r.name} />
+        ))}
 
       </GoogleMapReact>
     </div>

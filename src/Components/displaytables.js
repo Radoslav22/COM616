@@ -99,12 +99,12 @@ const DisplayTable = () => {
                 bookingSnap.forEach((doc) => {
                     let b = doc.data()
 
-                    console.log(b.restaurantid, restaurant_id)
-                    if (b.restaurantid == restaurant_id) {
+                    console.log(b.restaurantid, restaurant_id, "reserved")
+                    if (b.restaurantid === restaurant_id) {
                         let table_index = findTable(b.tableid)
                         console.log(table_index)
                         if (table_index >= 0) {
-                            if (b.date == date && parseInt(time) > formatTime(b.start) && parseInt(time) < formatTime(b.end)) {
+                            if (b.date === date && parseInt(time) > formatTime(b.start) && parseInt(time) < formatTime(b.end)) {
                                 console.log(b.restaurantid, "reserved")
                                 table[table_index].open = false
                                 //table.push(table[table_index]);
@@ -156,7 +156,7 @@ const DisplayTable = () => {
     function findTable(tableid) {
         let tableind
         table.forEach((t, index) => {
-            if (t.id == tableid) {
+            if (t.id === tableid) {
                 tableind = index
             }
         })
@@ -171,7 +171,7 @@ const DisplayTable = () => {
 
     return (
         <div>
-            <Link href="/restaurants"><Button color='success'>Go Back </Button></Link>
+            <Link href="/restaurants"><Button variant='contained' color='success'>Go Back </Button></Link>
 
             {restaurants.filter(r => r.id === restaurant_id).map(r => (
                 <Paper key={r.id}
@@ -227,8 +227,7 @@ const DisplayTable = () => {
                 </Paper >
 
             ))}
-            <p>This is current date {date}</p>
-            <p>This is current time {time}</p>
+
             <Grid
                 sx={{ marginTop: "2vh" }}
                 container
@@ -240,7 +239,7 @@ const DisplayTable = () => {
                     <Card sx={{ minWidth: 275 }} key={t.id}>
                         <CardContent>
                             <Typography variant='h6' color="text.secondary" gutterBottom>
-                                {t.open ? ("OPEN") : ("RESERVED")}
+                                {t.open ? ("AVAILABLE") : ("RESERVED")}
                             </Typography>
                             <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                                 Number of table:{t.tablename}
@@ -260,7 +259,7 @@ const DisplayTable = () => {
 
                 ))}
             </Grid>
-            <p>{restaurant_id}</p>
+
 
         </div>
     );

@@ -28,8 +28,8 @@ function App() {
 
           <Route element={<ProtectedRoutes />}><Route path='/restaurants' element={<Map />} /></Route>
           <Route path='/' element={<Home />}></Route>
-          <Route path='/book/:restaurant_id' element={<Book />} />
-          <Route path='/book-table/:table_id' element={<Booking />} />
+          <Route element={<ProtectedRoutes />}><Route path='/book/:restaurant_id' element={<Book />} /></Route>
+          <Route element={<ProtectedRoutes />}><Route path='/book-table/:table_id' element={<Booking />} /></Route>
           <Route path="/login" element={<Login signInEmailUser={signInEmailUser} />} />
           <Route path="/signup" element={<SignUp createEmailUser={createEmailUser} />} />
 
